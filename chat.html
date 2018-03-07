@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>聊天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn-hangzhou.goeasy.io/goeasy.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var goEasy = new GoEasy({
+        appkey: 'BC-fdbfc0f77a9f4d97a8e7119453f08d8a'
+      });
+
+      goEasy.subscribe({
+        channel: 'okzkx_channel',
+        onMessage: function (message) {
+          var p = $("<p>").html(message.content);
+          $("#message_box").append(p);
+        }
+      });
+
+      $("input[value = '发送']").click(function () {
+        goEasy.publish({
+          channel: 'okzkx_channel',
+          message: $("input").eq(0).val()
+        });
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+  <form>
+    <input type="text">
+    <input type="button" value="发送" />
+    <div id="message_box">
+
+
+    </div>
+  </form>
+</body>
+
+</html>
